@@ -7,6 +7,9 @@ import (
 )
 
 func main() {
+	// Вызов функции anothersolution
+	anothersolution()
+
 	in := bufio.NewScanner(os.Stdin)
 
 	alreadySeen := make(map[string]bool)
@@ -23,17 +26,32 @@ func main() {
 
 		// Маркируем уникальное значение
 		alreadySeen[txt] = true
-
 	}
 
 	// Вывод дупликатов: их количества и сами дупликаты
 	if len(duplicates) > 0 {
-		fmt.Printf("Duplicates found:%d\n", len(duplicates))
+		fmt.Printf("Duplicates found: %d\n", len(duplicates))
 		for _, dup := range duplicates {
 			fmt.Println(dup)
 		}
 	} else {
 		fmt.Println("No duplicates found.")
 	}
+}
 
+func anothersolution() {
+	in := bufio.NewScanner(os.Stdin)
+	var prev string
+
+	for in.Scan() {
+		txt := in.Text()
+		if txt == prev {
+			continue
+		}
+		if txt < prev {
+			panic("Файл не отсортирован")
+		}
+		prev = txt
+		fmt.Println(txt)
+	}
 }
